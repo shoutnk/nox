@@ -39,6 +39,7 @@ nox_core_LDADD =                            \
     $(BOOST_THREAD_LIB)                     \
     $(BOOST_FILESYSTEM_LIB)                 \
     $(BOOST_SYSTEM_LIB)                     \
+    $(BOOST_CPPFLAGS)                       \
     $(OPENSSL_LIBS)                         \
     $(LIBADD_DL)                            \
     $(LIBADD_DLOPEN)                        \
