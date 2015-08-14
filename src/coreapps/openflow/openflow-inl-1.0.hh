@@ -1164,6 +1164,7 @@ inline void ofp_match::from_packet(const uint32_t in_port_, boost::asio::const_b
         nw_src(ntohl(ip->ip_src));
         nw_dst(ntohl(ip->ip_dst));
         nw_proto(ip->ip_proto);
+        nw_tos(ip->ip_tos >> 3);
 
         if (!ip_::is_fragment(ip->ip_frag_off))
         {
