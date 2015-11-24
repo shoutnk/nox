@@ -362,7 +362,7 @@ inline void ofp_packet_out::serialize(Archive& ar, const unsigned int)
         actions_.length(actions_len_);
     ar& actions_;
 
-    uint8_t size = length() - min_bytes() - actions_len_;
+    uint16_t size = length() - min_bytes() - actions_len_;
     const uint8_t* packet = boost::asio::buffer_cast<const uint8_t*>(packet_buf_);
     ar& bs::make_binary_object(const_cast<uint8_t*>(packet), size);
     packet_buf_ = boost::asio::buffer(packet, size);
@@ -766,7 +766,7 @@ inline void ofp_packet_in::serialize(Archive& ar, const unsigned int)
         ar& bs::base_object<ofp_msg>(*this);
     /*
     ar & bs::make_binary_object(&buffer_id_, length() - 8);
-    uint8_t size = length() - min_bytes();
+    uint16_t size = length() - min_bytes();
     packet_buf_ = boost::asio::buffer(
             const_cast<uint8_t*>(
                 boost::asio::buffer_cast<const uint8_t*>(packet_buf_)),
@@ -777,7 +777,7 @@ inline void ofp_packet_in::serialize(Archive& ar, const unsigned int)
     ar& in_port_;
     ar& reason_;
     ar& pad_;
-    uint8_t size = length() - min_bytes();
+    uint16_t size = length() - min_bytes();
     uint8_t* packet = const_cast<uint8_t*>(boost::asio::buffer_cast<const uint8_t*>(packet_buf_));
     ar& bs::make_binary_object(packet, size);
     packet_buf_ = boost::asio::buffer(packet, size);
@@ -1027,7 +1027,7 @@ inline void ofp_echo_reply::serialize(Archive& ar, const unsigned int)
 {
     if (Archive::is_saving::value) ar& bs::base_object<ofp_msg>(*this);
     const uint8_t* payload = boost::asio::buffer_cast<const uint8_t*>(payload_buf_);
-    uint8_t size = length() - min_bytes();
+    uint16_t size = length() - min_bytes();
     ar& bs::make_binary_object(const_cast<uint8_t*>(payload), size);
 }
 
@@ -1036,7 +1036,7 @@ inline void ofp_echo_request::serialize(Archive& ar, const unsigned int)
 {
     if (Archive::is_saving::value) ar& bs::base_object<ofp_msg>(*this);
     const uint8_t* payload = boost::asio::buffer_cast<const uint8_t*>(payload_buf_);
-    uint8_t size = length() - min_bytes();
+    uint16_t size = length() - min_bytes();
     ar& bs::make_binary_object(const_cast<uint8_t*>(payload), size);
     payload_buf_ = boost::asio::buffer(payload, size);
 }
